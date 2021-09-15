@@ -7,7 +7,7 @@ const UserService = require('../services/User.Service');
 // routes
 router.post('/login', loginSchema, login);
 router.post('/create', createSchema, create);
-router.post('/addCryptocurrency', addCryptocurrency);
+router.post('/addCryptocurrency', addCryptoSchema, addCryptocurrency);
 
 module.exports = router;
 
@@ -25,12 +25,12 @@ function create(req, res, next) {
 }
 
 function addCryptocurrency(req, res, next) {
-    //res.send({message: req.user.sub})
     UserService.addCryptocurrency(req.user, req.body)
-        .then(user => res.status(200).json(user))
+    .then(() => res.json({message: "Se agregaron correctamente las criptomonedas al usuario."}))
         .catch(next);
 }
 
+//schema validators
 function loginSchema(req, res, next) {
     const schema = Joi.object({
         username: Joi.string().required(),
@@ -46,6 +46,16 @@ function createSchema(req, res, next) {
         firstname:  Joi.string().required(), 
         lastname: Joi.string().required(),
         preferedCurrency: Joi.string().valid("eur", "usd", "ars").required(),
+    });
+    validateRequest(req, next, schema);
+}
+
+function addCryptoSchema(req, res, next) {
+    const schema = Joi.object({
+        cryptoCurrencies: Joi.array()
+            .items({
+                symbol: Joi.string().required(),
+            })
     });
     validateRequest(req, next, schema);
 }

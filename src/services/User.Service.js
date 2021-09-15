@@ -54,12 +54,11 @@ async function addCryptocurrency(pUser, pBody) {
         
         if (!exist){
             //Si no existe lo agrego a las cryptomonedas del usuario
-            
-        }
-        
+            user.cryptoCurrencies.push(crypto);  
+        }        
     }
+    
+    //Actualizo
+    await user.save();
 
-    //console.log(user.sub);
-    //console.log(body.id);
-    //return await User.findById(id);
 }
