@@ -8,6 +8,7 @@ const UserService = require('../services/User.Service');
 router.post('/login', loginSchema, login);
 router.post('/create', createSchema, create);
 router.post('/addCryptocurrency', addCryptoSchema, addCryptocurrency);
+router.post('/getTopNCryptos', getTopNSchema, getTopNCryptos);
 
 module.exports = router;
 
@@ -27,6 +28,12 @@ function create(req, res, next) {
 function addCryptocurrency(req, res, next) {
     UserService.addCryptocurrency(req.user, req.body)
     .then(() => res.json({message: "Se agregaron correctamente las criptomonedas al usuario."}))
+        .catch(next);
+}
+
+function getTopNCryptos(req, res, next) {
+    UserService.getTopNCryptos(req.user, req.body)
+        .then(cryptos => res.json(cryptos))
         .catch(next);
 }
 
@@ -54,8 +61,16 @@ function addCryptoSchema(req, res, next) {
     const schema = Joi.object({
         cryptoCurrencies: Joi.array()
             .items({
-                symbol: Joi.string().required(),
+                crypto_id: Joi.string().required(),
             })
+    });
+    validateRequest(req, next, schema);
+}
+
+function getTopNSchema(req, res, next) {
+    const schema = Joi.object({
+        n: Joi.number().max(25).required(),
+        order: Joi.string().valid("asc", "desc", "").optional(),
     });
     validateRequest(req, next, schema);
 }

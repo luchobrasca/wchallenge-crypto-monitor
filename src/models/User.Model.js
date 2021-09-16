@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   firstname:  String, 
   lastname: String,
   preferedCurrency:   String,
-  cryptoCurrencies: [{ symbol: String }]
+  cryptoCurrencies: [{ crypto_id: String }]
 },
 {
     timestamps: {

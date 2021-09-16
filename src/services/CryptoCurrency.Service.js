@@ -13,7 +13,7 @@ async function getAll(pUser) {
 
     var userCurrency = user.preferedCurrency;
 
-    //Obtengo monedas
+    //Obtengo monedas de CoinGecko
     const coins = await fetch(`https://api.coingecko.com/api/v3/coins`, {method: 'get'})
         .then(response => {
             return response.json();
