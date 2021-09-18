@@ -28,6 +28,12 @@ También nos informa si la conexión con la base de datos fue exitosa.
 Successfully connect to MongoDB
 ```
 
+Para correr los test.
+
+```bash
+npm test
+```
+
 ## Configuración de la base de datos
 
 El connectionString a la base de datos lo encontraremos en el archivo config.json. En el respositorio se incluye una conexión a una base de datos en MongoDB Atlas, a fines de simplificar la prueba y evaluacion del proyecto
