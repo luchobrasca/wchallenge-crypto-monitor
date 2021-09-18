@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-
-let connectionString = 'mongodb+srv://lbrasca:admin123@cluster0.b7smc.mongodb.net/wchallenge-crypto?retryWrites=true&w=majority'
+const { connectionString } = require('../config.json');
 
 initialize();
 

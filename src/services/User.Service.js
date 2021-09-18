@@ -113,6 +113,7 @@ async function getTopNCryptos(pUser, {n, order}){
     return responseArray.slice(0, n);
 }
 
+//funciones para el ordenamiento del array de monedas
 function orderAsc(a, b){
     const priceA = a.preferedCurrencyPrice;
     const priceB = b.preferedCurrencyPrice;
